@@ -1,6 +1,6 @@
-# covid-monitoring
+# Corona Virus Monitoring
 
-> Covid Monitoring
+> Corona Virus Monitoring
 
 ## Build Setup
 
