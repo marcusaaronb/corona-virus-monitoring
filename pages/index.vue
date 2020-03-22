@@ -4,13 +4,17 @@
   <div>
     <v-toolbar class="indigo lighten-1 white--text">
       <v-toolbar-title>Corona Virus Monitoring</v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-btn flat icon dark @click="openGithub">
+        <v-icon>public</v-icon>
+      </v-btn>
     </v-toolbar>
 
     <v-container grid-list-md>
       <v-content>
         <v-layout>
           <v-flex xs12 sm4 v-for="all in all" :key="all.name">
-            <v-card>
+            <v-card :color="all.color" dark>
               <v-card-title primary-title>
                 <div>
                   <div class="headline">{{ all.name }}</div>
@@ -58,7 +62,7 @@
                 <h4>{{ props.item.country }}</h4>
                 <v-spacer></v-spacer>
                 <social-sharing
-                  url="https://www.kubopro.com/"
+                  url="https://corona-virus-monitoring.herokuapp.com/"
                   :title="props.item.country"
                   :description="
                   `
@@ -123,12 +127,6 @@
                   <v-list-tile-content>Critical:</v-list-tile-content>
                   <v-list-tile-content style="align-items:flex-end">{{ props.item.critical }}</v-list-tile-content>
                 </v-list-tile>
-                <!-- <v-list-tile>
-                  <v-list-tile-content>Case Per One Million:</v-list-tile-content>
-                  <v-list-tile-content
-                    style="align-items:flex-end"
-                  >{{ props.item.casesPerOneMillion }}</v-list-tile-content>
-                </v-list-tile>-->
               </v-list>
             </v-card>
           </v-flex>
@@ -175,7 +173,7 @@
                 <h4>{{ props.item.state }}</h4>
                 <v-spacer></v-spacer>
                 <social-sharing
-                  url="https://www.kubopro.com/"
+                  url="https://corona-virus-monitoring.herokuapp.com/"
                   :title="props.item.state"
                   :description="
                   `
@@ -255,9 +253,10 @@
           </v-btn>-->
         </v-card-text>
 
-        <v-card-text
-          class="white--text pt-0"
-        >Phasellus feugiat arcu sapien, et iaculis ipsum elementum sit amet. Mauris cursus commodo interdum. Praesent ut risus eget metus luctus accumsan id ultrices nunc. Sed at orci sed massa consectetur dignissim a sit amet dui. Duis commodo vitae velit et faucibus. Morbi vehicula lacinia malesuada. Nulla placerat augue vel ipsum ultrices, cursus iaculis dui sollicitudin. Vestibulum eu ipsum vel diam elementum tempor vel ut orci. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus.</v-card-text>
+        <v-card-text class="white--text pt-0">
+          Coronavirus disease (COVID-19) is an infectious disease caused by a newly discovered coronavirus.
+          Most people infected with the COVID-19 virus will experience mild to moderate respiratory illness and recover without requiring special treatment. Older people, and those with underlying medical problems like cardiovascular disease, diabetes, chronic respiratory disease, and cancer are more likely to develop serious illness.
+        </v-card-text>
 
         <v-divider></v-divider>
 
@@ -281,15 +280,18 @@ export default {
     all: [
       {
         name: "Total Cases",
-        count: 0
+        count: 0,
+        color: "blue"
       },
       {
         name: "Total Deaths",
-        count: 0
+        count: 0,
+        color: "red"
       },
       {
         name: "Total Recovered",
-        count: 0
+        count: 0,
+        color: "green"
       }
     ],
     wholeWorld: {
@@ -332,6 +334,12 @@ export default {
     this.state.data = state;
   },
   methods: {
+    openGithub() {
+      window.open(
+        "https://github.com/marcusaaronb/corona-virus-monitoring",
+        "_blank"
+      );
+    },
     async refreshWorld() {
       const countries = await this.$axios.$get(
         "https://corona.lmao.ninja/countries"
