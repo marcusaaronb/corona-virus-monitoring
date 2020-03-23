@@ -32,7 +32,10 @@
         <v-flex xs12 sm6 md4 lg3>
           <v-card>
             <v-card-title>
-              <h4>{{ props.item.country }}</h4>
+              <h4>
+                <v-img :src="props.item.countryInfo.flag"></v-img>
+                {{ props.item.country }}
+              </h4>
               <v-spacer></v-spacer>
               <social-sharing
                 url="https://corona-virus-monitoring.herokuapp.com/"
@@ -40,9 +43,10 @@
                 :description="
                   `
                     Country:      ${props.item.country}
-                    Cases:        ${props.item.todayCases}
-                    Today Cases:  ${props.item.todayDeaths}
+                    Cases:        ${props.item.cases}
+                    Today Cases:  ${props.item.todayCases}
                     Deaths:       ${props.item.deaths}
+                    Today Deaths: ${props.item.todayDeaths}
                     Recovered:    ${props.item.recovered}
                     Active:       ${props.item.active}
                     Critical:     ${props.item.critical}
@@ -51,9 +55,10 @@
                 :quote="
                   `
                     Country:      ${props.item.country}
-                    Cases:        ${props.item.todayCases}
-                    Today Cases:  ${props.item.todayDeaths}
+                    Cases:        ${props.item.cases}
+                    Today Cases:  ${props.item.todayCases}
                     Deaths:       ${props.item.deaths}
+                    Today Deaths: ${props.item.todayDeaths}
                     Recovered:    ${props.item.recovered}
                     Active:       ${props.item.active}
                     Critical:     ${props.item.critical}
@@ -89,6 +94,10 @@
                 <v-list-tile-content style="align-items:flex-end">{{ props.item.deaths }}</v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
+                <v-list-tile-content>Today Deaths:</v-list-tile-content>
+                <v-list-tile-content style="align-items:flex-end">{{ props.item.todayDeaths }}</v-list-tile-content>
+              </v-list-tile>
+              <v-list-tile>
                 <v-list-tile-content>Recovered:</v-list-tile-content>
                 <v-list-tile-content style="align-items:flex-end">{{ props.item.recovered }}</v-list-tile-content>
               </v-list-tile>
@@ -121,7 +130,7 @@ export default {
       countries: [],
       dataIteratorConfig: {
         search: "",
-        rowsPerPageItems: [8, 16, 32, 500],
+        rowsPerPageItems: [8, 16, 32],
         pagination: {
           rowsPerPage: 8
         }
