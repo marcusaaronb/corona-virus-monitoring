@@ -119,7 +119,7 @@ export default {
       data: [],
       dataIteratorConfig: {
         search: "",
-        rowsPerPageItems: [8, 16, 32, 500],
+        rowsPerPageItems: [8, 16, 32],
         pagination: {
           rowsPerPage: 8
         }
