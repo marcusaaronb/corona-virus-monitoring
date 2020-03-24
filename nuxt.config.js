@@ -60,8 +60,12 @@ module.exports = {
   modules: [
     // Doc: https://github.com/nuxt-community/axios-module#usage
     '@nuxtjs/axios',
-    'nuxt-leaflet'
+    'nuxt-leaflet',
+    '@nuxtjs/google-analytics'
   ],
+  googleAnalytics: {
+    id: 'UA-161767707-1'
+  },
   /*
    ** Axios module configuration
    */

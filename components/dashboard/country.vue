@@ -127,7 +127,7 @@
           primary-title
         >Historical | {{history.standardizedCountryName }}</v-card-title>
 
-        <v-tabs v-model="active" color="indigo lighten-2" dark slider-color="yellow">
+        <v-tabs color="indigo lighten-2" dark slider-color="yellow">
           <v-tab ripple>Cases</v-tab>
           <v-tab-item>
             <v-card flat>
