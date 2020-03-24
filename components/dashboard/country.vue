@@ -30,7 +30,7 @@
 
       <template v-slot:item="props">
         <v-flex xs12 sm6 md4 lg3>
-          <v-card>
+          <v-card v-ripple @click="showHistory(props.item.country)">
             <v-card-title>
               <h4>
                 <v-img :src="props.item.countryInfo.flag"></v-img>
@@ -44,9 +44,9 @@
                   `
                     Country:      ${props.item.country}
                     Cases:        ${props.item.cases}
-                    Today Cases:  ${props.item.todayCases}
+                    Today Cases:  ${props.item.todayCases != 0 ? '+ ' + props.item.todayCases : 0 }
                     Deaths:       ${props.item.deaths}
-                    Today Deaths: ${props.item.todayDeaths}
+                    Today Deaths: ${props.item.todayDeaths != 0 ? '+ ' + props.item.todayDeaths : 0}
                     Recovered:    ${props.item.recovered}
                     Active:       ${props.item.active}
                     Critical:     ${props.item.critical}
@@ -56,9 +56,9 @@
                   `
                     Country:      ${props.item.country}
                     Cases:        ${props.item.cases}
-                    Today Cases:  ${props.item.todayCases}
+                    Today Cases:  ${props.item.todayCases != 0 ? '+ ' + props.item.todayCases : 0 }
                     Deaths:       ${props.item.deaths}
-                    Today Deaths: ${props.item.todayDeaths}
+                    Today Deaths: ${props.item.todayDeaths != 0 ? '+ ' + props.item.todayDeaths : 0}
                     Recovered:    ${props.item.recovered}
                     Active:       ${props.item.active}
                     Critical:     ${props.item.critical}
@@ -87,7 +87,9 @@
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>Today Cases:</v-list-tile-content>
-                <v-list-tile-content style="align-items:flex-end">{{ props.item.todayCases }}</v-list-tile-content>
+                <v-list-tile-content
+                  style="align-items:flex-end"
+                >{{ props.item.todayCases != 0 ? '+ ' + props.item.todayCases : 0 }}</v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>Deaths:</v-list-tile-content>
@@ -95,7 +97,9 @@
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>Today Deaths:</v-list-tile-content>
-                <v-list-tile-content style="align-items:flex-end">{{ props.item.todayDeaths }}</v-list-tile-content>
+                <v-list-tile-content
+                  style="align-items:flex-end"
+                >{{ props.item.todayDeaths != 0 ? '+ ' + props.item.todayDeaths : 0 }}</v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>Recovered:</v-list-tile-content>
@@ -114,6 +118,54 @@
         </v-flex>
       </template>
     </v-data-iterator>
+
+    <!-- dialog -->
+    <v-dialog v-model="dialog" width="400">
+      <v-card>
+        <v-card-title
+          class="indigo lighten-1 white--text"
+          primary-title
+        >Historical | {{history.standardizedCountryName }}</v-card-title>
+
+        <v-tabs v-model="active" color="indigo lighten-2" dark slider-color="yellow">
+          <v-tab ripple>Cases</v-tab>
+          <v-tab-item>
+            <v-card flat>
+              <v-card-text
+                v-for="(data, index) in history.timeline.cases"
+                :key="index"
+              >{{index}} - {{ data }}</v-card-text>
+            </v-card>
+          </v-tab-item>
+
+          <v-tab ripple>Deaths</v-tab>
+          <v-tab-item>
+            <v-card flat>
+              <v-card-text
+                v-for="(data, index) in history.timeline.deaths"
+                :key="index"
+              >{{index}} - {{ data }}</v-card-text>
+            </v-card>
+          </v-tab-item>
+
+          <v-tab ripple>Recovered</v-tab>
+          <v-tab-item>
+            <v-card flat>
+              <v-card-text
+                v-for="(data, index) in history.timeline.recovered"
+                :key="index"
+              >{{index}} - {{ data }}</v-card-text>
+            </v-card>
+          </v-tab-item>
+        </v-tabs>
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="primary" flat @click="dialog = false">Close</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-container>
 </template>
 
@@ -125,6 +177,7 @@ if (process.browser) {
 
 export default {
   data: () => ({
+    dialog: false,
     wholeWorld: {
       is_loading: false,
       countries: [],
@@ -134,6 +187,14 @@ export default {
         pagination: {
           rowsPerPage: 8
         }
+      }
+    },
+    history: {
+      standardizedCountryName: null,
+      timeline: {
+        cases: null,
+        deaths: null,
+        recovered: null
       }
     }
   }),
@@ -152,6 +213,13 @@ export default {
         "https://corona.lmao.ninja/countries"
       );
       this.wholeWorld.countries = countries;
+    },
+    async showHistory(country) {
+      const data = await this.$axios.$get(
+        `https://corona.lmao.ninja/historical/${country}`
+      );
+      this.history = data;
+      this.dialog = true;
     }
   }
 };

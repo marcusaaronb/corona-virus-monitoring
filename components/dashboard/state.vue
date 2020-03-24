@@ -40,9 +40,9 @@
                   `
                     City:           ${props.item.state}
                     Cases:          ${props.item.cases}
-                    Today Cases:    ${props.item.todayCases}
+                    Today Cases:    ${props.item.todayCases != 0 ? '+ ' + props.item.todayCases : 0}
                     Deaths:         ${props.item.deaths}
-                    Today Deaths:   ${props.item.todayDeaths}
+                    Today Deaths:   ${props.item.todayDeaths != 0 ? '+ ' + props.item.todayDeaths : 0 }
                     Recovered:      ${props.item.recovered}
                     Active:         ${props.item.active}
                   `
@@ -51,9 +51,9 @@
                   `
                     City:           ${props.item.state}
                     Cases:          ${props.item.cases}
-                    Today Cases:    ${props.item.todayCases}
+                    Today Cases:    ${props.item.todayCases != 0 ? '+ ' + props.item.todayCases : 0}
                     Deaths:         ${props.item.deaths}
-                    Today Deaths:   ${props.item.todayDeaths}
+                    Today Deaths:   ${props.item.todayDeaths != 0 ? '+ ' + props.item.todayDeaths : 0 }
                     Recovered:      ${props.item.recovered}
                     Active:         ${props.item.active}
                   `
@@ -81,7 +81,9 @@
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>Today Cases:</v-list-tile-content>
-                <v-list-tile-content style="align-items:flex-end">{{ props.item.todayCases }}</v-list-tile-content>
+                <v-list-tile-content
+                  style="align-items:flex-end"
+                >{{ props.item.todayCases != 0 ? '+ ' + props.item.todayCases : 0 }}</v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>Deaths:</v-list-tile-content>
@@ -89,7 +91,9 @@
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>Today Deaths:</v-list-tile-content>
-                <v-list-tile-content style="align-items:flex-end">{{ props.item.todayDeaths }}</v-list-tile-content>
+                <v-list-tile-content
+                  style="align-items:flex-end"
+                >{{ props.item.todayDeaths != 0 ? '+ ' + props.item.todayDeaths : 0 }}</v-list-tile-content>
               </v-list-tile>
               <v-list-tile>
                 <v-list-tile-content>Recovered:</v-list-tile-content>
