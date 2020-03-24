@@ -2,6 +2,7 @@
 
 <template>
   <div>
+    <!-- toolbar -->
     <toolbar />
 
     <!-- main -->
@@ -9,6 +10,13 @@
 
     <!-- countries -->
     <country />
+
+    <v-container>
+      <v-divider></v-divider>
+    </v-container>
+
+    <!-- ph cases -->
+    <ph_covid_cases />
 
     <v-container>
       <v-divider></v-divider>
@@ -44,7 +52,11 @@ export default {
     country: () =>
       import(/* webpackPrefetch: true */ "../components/dashboard/country.vue"),
     state: () =>
-      import(/* webpackPrefetch: true */ "../components/dashboard/state.vue")
+      import(/* webpackPrefetch: true */ "../components/dashboard/state.vue"),
+    ph_covid_cases: () =>
+      import(
+        /* webpackPrefetch: true */ "../components/dashboard/ph_covid_cases.vue"
+      )
   },
   async mounted() {
     const data = await this.$axios.$get("https://corona.lmao.ninja/jhucsse");

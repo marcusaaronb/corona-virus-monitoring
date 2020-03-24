@@ -5,6 +5,11 @@
       <v-divider></v-divider>
       <h3>Developed By:</h3>
       <p>Marcus Aaron M. Baga</p>
+      <br />
+      <h3>
+        If you love my work buy me a coffee ☕
+        <v-btn flat small @click="buyMeCofee">buy me now</v-btn>
+      </h3>
     </v-container>
 
     <v-footer dark height="auto">
@@ -29,5 +34,11 @@
 </template>
 
 <script>
-export default {};
+export default {
+  methods: {
+    buyMeCofee() {
+      window.open("https://www.buymeacoffee.com/zjc48Xd", "_blank");
+    }
+  }
+};
 </script>
