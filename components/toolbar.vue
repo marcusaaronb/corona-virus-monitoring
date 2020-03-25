@@ -18,10 +18,10 @@
 export default {
   methods: {
     openGithub() {
-      window.open(
-        "https://github.com/marcusaaronb/corona-virus-monitoring",
-        "_blank"
-      );
+      const otherWindow = window.open();
+      otherWindow.opener = null;
+      otherWindow.location =
+        "https://github.com/marcusaaronb/corona-virus-monitoring";
     }
   }
 };
