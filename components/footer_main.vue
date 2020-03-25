@@ -37,7 +37,9 @@
 export default {
   methods: {
     buyMeCofee() {
-      window.open("https://www.buymeacoffee.com/zjc48Xd", "_blank");
+      const otherWindow = window.open();
+      otherWindow.opener = null;
+      otherWindow.location = "https://www.buymeacoffee.com/zjc48Xd";
     }
   }
 };
