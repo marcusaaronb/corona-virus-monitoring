@@ -87,54 +87,50 @@ export default {
       .addTo(map);
 
     this.data.forEach(e => {
-      if(e.coordinates.latitude != null && e.coordinates.longitude != null) {
+      let latitude = e.coordinates.latitude;
+      let longitude = e.coordinates.longitude;
+      let country = e.country;
+      let province = e.province == null ? "N/A" : e.province;
+      let confirmed = e.stats.confirmed;
+      let deaths = e.stats.deaths;
+      let recovered = e.stats.recovered;
+      let updatedAt = e.updatedAt;
+
+      if (latitude != null && longitude != null) {
         this.$L
-          .marker([e.coordinates.latitude, e.coordinates.longitude], {
+          .marker([latitude, longitude], {
             icon: myIcon
           })
           .bindPopup(
             "Country: " +
-              e.country +
+              country +
               "<br>" +
               "Province: " +
-              e.province +
+              province +
               "<br><br>" +
               "<b>Stats</b>" +
               "<br>" +
               "Confirmed: " +
-              e.stats.confirmed +
+              confirmed +
               "<br>" +
               "Deaths: " +
-              e.stats.deaths +
+              deaths +
               "<br>" +
               "Recovered: " +
-              e.stats.recovered +
+              recovered +
               "<br>" +
               "Updated At:" +
-              e.updatedAt +
+              updatedAt +
               "<br>" +
               "[Lat: " +
-              e.coordinates.latitude +
+              latitude +
               ", Lon: " +
-              e.coordinates.longitude +
+              longitude +
               "]"
           )
           .addTo(map);
       }
     });
-  },
-  methods: {
-    showData(data) {
-      alert(
-        "Country: " +
-          data.country +
-          "<br>" +
-          "Stats" +
-          "<br>" +
-          "confirmed" +
-          data.stats.confirmed
-      );
-    }
   }
 };
 </script>
