@@ -59,7 +59,7 @@ export default {
       )
   },
   async mounted() {
-    const data = await this.$axios.$get("https://corona.lmao.ninja/jhucsse");
+    const data = await this.$axios.$get("https://corona.lmao.ninja/v2/jhucsse");
     this.data = data;
 
     const map = this.$L.map("map", {
@@ -87,38 +87,40 @@ export default {
       .addTo(map);
 
     this.data.forEach(e => {
-      this.$L
-        .marker([e.coordinates.latitude, e.coordinates.longitude], {
-          icon: myIcon
-        })
-        .bindPopup(
-          "Country: " +
-            e.country +
-            "<br>" +
-            "Province: " +
-            e.province +
-            "<br><br>" +
-            "<b>Stats</b>" +
-            "<br>" +
-            "Confirmed: " +
-            e.stats.confirmed +
-            "<br>" +
-            "Deaths: " +
-            e.stats.deaths +
-            "<br>" +
-            "Recovered: " +
-            e.stats.recovered +
-            "<br>" +
-            "Updated At:" +
-            e.updatedAt +
-            "<br>" +
-            "[Lat: " +
-            e.coordinates.latitude +
-            ", Lon: " +
-            e.coordinates.longitude +
-            "]"
-        )
-        .addTo(map);
+      if(e.coordinates.latitude != null && e.coordinates.longitude != null) {
+        this.$L
+          .marker([e.coordinates.latitude, e.coordinates.longitude], {
+            icon: myIcon
+          })
+          .bindPopup(
+            "Country: " +
+              e.country +
+              "<br>" +
+              "Province: " +
+              e.province +
+              "<br><br>" +
+              "<b>Stats</b>" +
+              "<br>" +
+              "Confirmed: " +
+              e.stats.confirmed +
+              "<br>" +
+              "Deaths: " +
+              e.stats.deaths +
+              "<br>" +
+              "Recovered: " +
+              e.stats.recovered +
+              "<br>" +
+              "Updated At:" +
+              e.updatedAt +
+              "<br>" +
+              "[Lat: " +
+              e.coordinates.latitude +
+              ", Lon: " +
+              e.coordinates.longitude +
+              "]"
+          )
+          .addTo(map);
+      }
     });
   },
   methods: {
