@@ -33,7 +33,7 @@
           <v-card v-ripple @click="showHistory(props.item.country)">
             <v-card-title>
               <h4>
-                <v-img :src="props.item.countryInfo.flag"></v-img>
+                <v-img :src="props.item.countryInfo.flag" height="50px" width="100px"></v-img>
                 {{ props.item.country }}
               </h4>
               <v-spacer></v-spacer>
@@ -203,20 +203,20 @@ export default {
   },
   async mounted() {
     const countries = await this.$axios.$get(
-      "https://corona.lmao.ninja/countries"
+      "https://corona.lmao.ninja/v2/countries"
     );
     this.wholeWorld.countries = countries;
   },
   methods: {
     async refreshWorld() {
       const countries = await this.$axios.$get(
-        "https://corona.lmao.ninja/countries"
+        "https://corona.lmao.ninja/v2/countries"
       );
       this.wholeWorld.countries = countries;
     },
     async showHistory(country) {
       const data = await this.$axios.$get(
-        `https://corona.lmao.ninja/historical/${country}`
+        `https://corona.lmao.ninja/v2/historical/${country}`
       );
       this.history = data;
       this.dialog = true;
