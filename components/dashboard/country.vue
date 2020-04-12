@@ -125,7 +125,7 @@
         <v-card-title
           class="indigo lighten-1 white--text"
           primary-title
-        >Historical | {{history.standardizedCountryName }}</v-card-title>
+        >Historical | {{ history.country || 'N/A' }}</v-card-title>
 
         <v-tabs color="indigo lighten-2" dark slider-color="yellow">
           <v-tab ripple>Cases</v-tab>
